@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォーム</title>
+</head>
+<body>
+    <!-- HTMLフォーム -->
+    <form id="myForm" onsubmit="return false;">
+        <label for="name">名前:</label>
+        <input type="text" id="name" name="name" autocomplete="off"><br>
+        <input type="button" value="送信" onclick="submitForm()">
+    </form>
+
+<!-- JavaScript -->
+    <script>
+        function submitForm() {
+            // フォームのデータを取得
+            var name = document.getElementById("name").value;
+
+            // サーバーにデータを送信
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://script.google.com/macros/s/AKfycbxbff8V4K5inUl0yT13orSHQi25zYgPU7aOtm56q7uNFEZX269LUvmCS9k2MKrp7KmtTw/exec");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            // データを送信
+            var data = "name=" + encodeURIComponent(name);
+            xhr.send(data);
+
+            // サーバーのレスポンスを処理する（必要に応じて）
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+                    };
+                        }
+</script>
+
+</body>
+</html>
