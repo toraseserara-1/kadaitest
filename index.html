@@ -1,32 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フォーム</title>
+    <title>提出物フォーム</title>
+    <style>
+        body {
+            font-size:50px;
+            text-align: center;
+          }
+        h1{
+            margin-bottom: 0;
+            margin-top: 0;
+            
+        }
+        textarea{
+            resize:none;
+            width:1000px;
+            height:200px;
+            font-size:65%;
+        }
+        input{
+            resize:none;
+            width:1000px;
+            height: 50px;
+            font-size:65%;
+        }
+        .button{
+            padding: 10px 150px;
+            font-size:30px;
+        }
+    </style>
 </head>
 <body>
+    <h1 class="title">課題提出日記録フォーム</h1>
     <!-- HTMLフォーム -->
     <form id="myForm" onsubmit="return false;">
-        <label for="name">名前:</label>
-        <input type="text" id="name" name="name" autocomplete="off"><br>
-        <input type="button" value="送信" onclick="submitForm()">
+        <label for="subject">教科名</label><br>
+        <input type="text" id="subject" name="subject" autocomplete="off" placeholder="教科名を入れてください。"><br>
+
+        <label for="day">締め切り日</label><br>
+        <input type="text" id="day" name="day" autocomplete="off" placeholder="半角数字を入れてください。例2999年1月1日→2999,01,01"><br>
+
+        <label for="contents">内容</label><br>
+        <textarea type="text" id="contents" name="contents" autocomplete="off" placeholder="捕捉したい点などあれば書き込んでください。"></textarea><br>
+        
+        <!--<input type="button" value="送信" onclick="submitForm()">-->
+        <button value="送信" onclick="submitForm()" class="button">送信</button>
+        
     </form>
 
 <!-- JavaScript -->
     <script>
         function submitForm() {
             // フォームのデータを取得
-            var name = document.getElementById("name").value;
+            var subject = document.getElementById("subject").value;
+            var day = document.getElementById("day").value;
+            var contents = document.getElementById("contents").value;
 
             // サーバーにデータを送信
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://script.google.com/macros/s/AKfycbxbff8V4K5inUl0yT13orSHQi25zYgPU7aOtm56q7uNFEZX269LUvmCS9k2MKrp7KmtTw/exec");
+            xhr.open("POST", "https://script.google.com/macros/s/AKfycbz523QvPYGH5pP1s4D0vnHNE_pBt54dGDyDjO_CJoSeiZTkcUUT9CvVuyRFYuivTpAr/exec");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             // データを送信
-            var data = "name=" + encodeURIComponent(name);
+            var data = "subject=" + encodeURIComponent(subject) + "&day=" + encodeURIComponent(day) + "&contents=" + encodeURIComponent(contents);
             xhr.send(data);
 
             // サーバーのレスポンスを処理する（必要に応じて）
