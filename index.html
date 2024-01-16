@@ -7,8 +7,7 @@
     <title>提出物フォーム</title>
     <style>
         body {
-            font-size:50px;
-            text-align: center;
+            font-size:20px;
           }
         h1{
             margin-bottom: 0;
@@ -39,9 +38,15 @@
     <form id="myForm" onsubmit="return false;">
         <label for="subject">教科名</label><br>
         <input type="text" id="subject" name="subject" autocomplete="off" placeholder="教科名を入れてください。"><br>
+        
+        <label for="day">提出期限</label><br>
+        <input type="date" id="day" name="day"><br>
 
-        <label for="day">締め切り日</label><br>
-        <input type="text" id="day" name="day" autocomplete="off" placeholder="半角数字を入れてください。例2999年1月1日→2999,01,01"><br>
+        <label for="time">時間の選択:</label><br>
+        <select id="time" name="time"></select><br>
+
+        <!-- <label for="day">締め切り日</label><br>
+        <input type="text" id="day" name="day" autocomplete="off" placeholder="半角数字を入れてください。例2999年1月1日→2999,01,01"><br> -->
 
         <label for="contents">内容</label><br>
         <textarea type="text" id="contents" name="contents" autocomplete="off" placeholder="捕捉したい点などあれば書き込んでください。"></textarea><br>
@@ -58,6 +63,7 @@
             var subject = document.getElementById("subject").value;
             var day = document.getElementById("day").value;
             var contents = document.getElementById("contents").value;
+            var time = document.getElementById("time").value;
 
             // サーバーにデータを送信
             var xhr = new XMLHttpRequest();
@@ -65,7 +71,8 @@
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             // データを送信
-            var data = "subject=" + encodeURIComponent(subject) + "&day=" + encodeURIComponent(day) + "&contents=" + encodeURIComponent(contents);
+            var data = "subject=" + encodeURIComponent(subject) + "&day=" + encodeURIComponent(`${day}-${time}`) + "&contents=" + encodeURIComponent(contents);
+            console.log(data)
             xhr.send(data);
 
             // サーバーのレスポンスを処理する（必要に応じて）
@@ -75,6 +82,16 @@
                 }
                     };
                         }
+            const selectElement = document.getElementById("time");
+
+            for (let hour = 0; hour <= 23; hour++) {
+            for (let minute = 0; minute <= 59; minute += 15) {
+            const optionElement = document.createElement("option");
+            optionElement.value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+            optionElement.textContent = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+            selectElement.appendChild(optionElement);
+                }
+                    }
 </script>
 
 </body>
