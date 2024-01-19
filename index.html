@@ -59,6 +59,9 @@
 <!-- JavaScript -->
     <script>
         function submitForm() {
+            target = document.getElementById("output");
+            target.innerHTML = "Penguin";
+    
             // フォームのデータを取得
             var subject = document.getElementById("subject").value;
             var day = document.getElementById("day").value;
